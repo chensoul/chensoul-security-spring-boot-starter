@@ -29,18 +29,18 @@ The following configuration properties are available to customize the default be
 
 | Property                          | Required | Default Value                       |
 |-----------------------------------|----------|-------------------------------------|
-| `security.jwt.issuer`             | yes      | `""`                                |
+| `security.jwt.enabled`            | no       | `true`                              |
+| `security.jwt.issuer`             | yes      |                                     |
 | `security.jwt.header`             | yes      | `Authorization`                     |
 | `security.jwt.expires-in`         | yes      | `604800`                            |
-| `security.jwt.secret`             | yes      | `""`                                |
+| `security.jwt.secret`             | yes      |                                     |
 | `security.jwt.base-path`          | yes      | `/api/**`                           |
 | `security.jwt.permit-all-paths`   | no       | `/api/auth/login,/api/auth/refresh` |
-| `security.jwt.enabled`            | no       | `true`                              |
 | `security.jwt.auth-token-path`    | no       | `/api/auth/login`                   |
 | `security.jwt.refresh-token-path` | no       | `/api/auth/refresh`                 |
 | `security.jwt.auth-me-path`       | no       | `/api/auth/me`                      |
 
-If security.jwt.enabled property is set to true then following REST endpoints will be available:
+If `security.jwt.enabled` property is set to true then following REST endpoints will be available:
 
 ### 1. Login/Create Auth Token
 
