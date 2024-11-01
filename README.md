@@ -90,6 +90,6 @@ curl --header "Content-Type: application/json" \
 ```
 {
     "username": "admin",
-    "roles": ["ROLE_USER","ROLE_ADMIN"]
+    "roles": ["ROLE_USER"]
 }
 ```

@@ -9,10 +9,29 @@ Content-Type: application/json
 
 > {% client.global.set("auth_token", response.body.access_token); %}
 
-### user info
+### Refresh token
+POST localhost:8080/api/auth/refresh
+#Authorization: Bearer {{auth_token}}
+
+### Get user info
 GET localhost:8080/api/auth/me
 Authorization: Bearer {{auth_token}}
 
-### Refresh token
-POST localhost:8080/api/auth/refresh
+### Get data with token
+GET localhost:8080/api/data
 Authorization: Bearer {{auth_token}}
+
+### Get data without token
+GET localhost:8080/api/data
+
+### Get health
+GET localhost:8080/api/health
+
+### Get health
+POST localhost:8080/api/xxxxx
+
+### Get hello
+GET localhost:8080/public/hello
+
+###
+GET localhost:8080/public/unkown

@@ -1,4 +1,4 @@
-package com.chensoul.springboot.security.jwt;
+package com.chensoul.security.jwt;
 
 import static java.util.Arrays.asList;
 import java.util.List;

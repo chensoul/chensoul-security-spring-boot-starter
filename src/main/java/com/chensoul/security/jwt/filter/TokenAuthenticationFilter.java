@@ -1,6 +1,8 @@
-package com.chensoul.springboot.security.jwt.filter;
-import com.chensoul.springboot.security.jwt.token.TokenHelper;
+package com.chensoul.security.jwt.filter;
+
+import com.chensoul.security.jwt.token.TokenHelper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@Slf4j
 @RequiredArgsConstructor
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
@@ -25,13 +28,13 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain chain
     ) throws IOException, ServletException {
+        log.info("Check token for {}", request.getRequestURI());
 
-        String username;
+        // TODO ignore some url, for example login url
         String authToken = tokenHelper.getToken(request);
-
-        if (authToken != null) {
-            username = tokenHelper.getUsernameFromToken(authToken);
-            if (username != null) {
+        if (authToken!=null) {
+            String username = tokenHelper.getUsernameFromToken(authToken);
+            if (username!=null) {
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
                 if (tokenHelper.validateToken(authToken, userDetails)) {
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, authToken, userDetails.getAuthorities());

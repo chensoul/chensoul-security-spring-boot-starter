@@ -1,6 +1,6 @@
-package com.chensoul.springboot.security.jwt.token;
+package com.chensoul.security.jwt.token;
 
-import com.chensoul.springboot.security.jwt.JwtProperties;
+import com.chensoul.security.jwt.JwtProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

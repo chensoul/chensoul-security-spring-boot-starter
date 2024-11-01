@@ -1,9 +1,10 @@
-package com.chensoul.springboot.security.jwt;
+package com.chensoul.security.jwt;
 
-import com.chensoul.springboot.security.api.AuthenticationRestController;
-import com.chensoul.springboot.security.jwt.filter.TokenAuthenticationFilter;
-import com.chensoul.springboot.security.jwt.token.TokenHelper;
+import com.chensoul.security.jwt.controller.AuthenticationRestController;
+import com.chensoul.security.jwt.filter.TokenAuthenticationFilter;
+import com.chensoul.security.jwt.token.TokenHelper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -18,11 +19,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
+@Slf4j
 @Configuration
 @ConditionalOnClass(WebSecurityConfigurerAdapter.class)
 @EnableConfigurationProperties(JwtProperties.class)
@@ -43,6 +44,9 @@ public class JwtSecurityAutoConfiguration {
     @ConditionalOnProperty(name = "security.jwt.enabled", havingValue = "true", matchIfMissing = true)
     @ComponentScan(basePackageClasses = AuthenticationRestController.class)
     public static class DefaultAuthApiConfigurer {
+        public DefaultAuthApiConfigurer() {
+            log.info("Initializing DefaultAuthApiConfigurer");
+        }
     }
 
     @Configuration
@@ -62,6 +66,10 @@ public class JwtSecurityAutoConfiguration {
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
+            if (!jwtProperties.isEnabled()) {
+                return;
+            }
+
             String[] permitAllPaths = jwtProperties.getPermitAllPaths().toArray(new String[0]);
             http
                     .antMatcher(jwtProperties.getBasePath())
@@ -70,6 +78,7 @@ public class JwtSecurityAutoConfiguration {
                     .and()
                     .authorizeRequests()
                     .antMatchers(permitAllPaths).permitAll()
+                    .anyRequest().fullyAuthenticated()
                     .and()
                     .addFilterBefore(tokenAuthenticationFilter(), BasicAuthenticationFilter.class);
 

@@ -1,4 +1,4 @@
-package com.chensoul.springboot.security.jwt.domain;
+package com.chensoul.security.jwt.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

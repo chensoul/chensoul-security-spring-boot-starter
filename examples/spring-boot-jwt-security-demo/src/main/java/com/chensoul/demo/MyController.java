@@ -12,13 +12,12 @@ public class MyController {
         return "UP";
     }
 
-    @GetMapping("/public/status")
-    public String publicStatus() {
-        return "HelloWorld";
+    @GetMapping("/public/hello")
+    public String hello() {
+        return "World";
     }
 
     @GetMapping("/api/data")
-    @PreAuthorize("hasRole('ROLE_USER')")
     public String getData() {
         return "Here is the data";
     }

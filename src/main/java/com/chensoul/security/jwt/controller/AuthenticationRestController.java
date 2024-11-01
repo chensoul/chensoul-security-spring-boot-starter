@@ -1,25 +1,27 @@
-package com.chensoul.springboot.security.api;
+package com.chensoul.security.jwt.controller;
 
-import com.chensoul.springboot.security.jwt.JwtProperties;
-import com.chensoul.springboot.security.jwt.domain.AuthenticatedUser;
-import com.chensoul.springboot.security.jwt.domain.AuthenticationRequest;
-import com.chensoul.springboot.security.jwt.domain.AuthenticationToken;
-import com.chensoul.springboot.security.jwt.token.TokenHelper;
+import com.chensoul.security.jwt.JwtProperties;
+import com.chensoul.security.jwt.domain.AuthenticatedUser;
+import com.chensoul.security.jwt.domain.LoginRequest;
+import com.chensoul.security.jwt.domain.AuthenticationToken;
+import com.chensoul.security.jwt.token.TokenHelper;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Validated
 @RestController
 @RequiredArgsConstructor
 public class AuthenticationRestController {
@@ -28,7 +30,7 @@ public class AuthenticationRestController {
     private final JwtProperties securityConfigProperties;
 
     @PostMapping(value = "${security.jwt.auth-token-path:/api/auth/login}")
-    public AuthenticationToken createAuthenticationToken(@RequestBody AuthenticationRequest credentials) {
+    public AuthenticationToken login(@Valid @RequestBody LoginRequest credentials) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(credentials.getUsername(), credentials.getPassword())
         );
@@ -41,15 +43,10 @@ public class AuthenticationRestController {
     }
 
     @PostMapping(value = "${security.jwt.refresh-token-path:/api/auth/refresh}")
-    public ResponseEntity<AuthenticationToken> refreshAuthenticationToken(HttpServletRequest request) {
+    public ResponseEntity<AuthenticationToken> refreshToken(HttpServletRequest request) {
         String authToken = tokenHelper.getToken(request);
         String refreshedToken = tokenHelper.refreshToken(authToken);
-        return ResponseEntity.ok(
-                new AuthenticationToken(
-                        refreshedToken,
-                        securityConfigProperties.getExpiresIn()
-                )
-        );
+        return ResponseEntity.ok(new AuthenticationToken(refreshedToken, securityConfigProperties.getExpiresIn()));
     }
 
     @GetMapping(value = "${security.jwt.auth-me-path:/api/auth/me}")
