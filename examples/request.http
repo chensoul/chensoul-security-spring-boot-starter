@@ -1,0 +1,18 @@
+### Login
+POST localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin"
+}
+
+> {% client.global.set("auth_token", response.body.access_token); %}
+
+### user info
+GET localhost:8080/api/auth/me
+Authorization: Bearer {{auth_token}}
+
+### Refresh token
+POST localhost:8080/api/auth/refresh
+Authorization: Bearer {{auth_token}}
