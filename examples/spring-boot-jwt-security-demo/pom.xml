@@ -22,7 +22,7 @@
     <dependencies>
         <dependency>
             <groupId>com.chensoul</groupId>
-            <artifactId>chensoul-security-jwt-spring-boot-starter</artifactId>
+            <artifactId>chensoul-security-spring-boot-starter</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>

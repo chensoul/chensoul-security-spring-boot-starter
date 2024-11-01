@@ -1,6 +1,10 @@
-# chensoul-security-jwt-spring-boot-starter
+# chensoul-security-spring-boot-starter
 
-This is a SpringBoot starter to provide JWT token based security auto-configuration.
+This is a SpringBoot starter to provide JWT token based security autoconfiguration.
+
+## TODO
+
+- Add oauth2 support
 
 ## How to use?
 
@@ -11,14 +15,14 @@ This is a SpringBoot starter to provide JWT token based security auto-configurat
 ```
 <dependency>
     <groupId>com.chensoul</groupId>
-    <artifactId>chensoul-security-jwt-spring-boot-starter</artifactId>
+    <artifactId>chensoul-security-spring-boot-starter</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 </dependency>
 ```
 
 **Gradle**
 
-`compile group: 'com.chensoul', name: 'chensoul-security-jwt-spring-boot-starter', version: '0.0.1'`
+`compile group: 'com.chensoul', name: 'chensoul-security-spring-boot-starter', version: '0.0.1'`
 
 With the starter dependency is added, you need to configure a bean of type
 `org.springframework.security.core.userdetails.UserDetailsService`.

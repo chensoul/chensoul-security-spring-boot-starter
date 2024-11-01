@@ -11,12 +11,12 @@
     </parent>
 
     <groupId>com.chensoul</groupId>
-    <artifactId>chensoul-security-jwt-spring-boot-starter</artifactId>
+    <artifactId>chensoul-security-spring-boot-starter</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>chensoul-security-jwt-spring-boot-starter</name>
+    <name>chensoul-security-spring-boot-starter</name>
     <description>SpringBoot starter for JWT Token based Security</description>
-    <url>https://github.com/chensoul/chensoul-security-jwt-spring-boot-starter</url>
+    <url>https://github.com/chensoul/chensoul-security-spring-boot-starter</url>
 
     <licenses>
         <license>
@@ -34,10 +34,10 @@
     </developers>
 
     <scm>
-        <connection>scm:git:https://github.com/chensoul/chensoul-security-jwt-spring-boot-starter.git</connection>
-        <developerConnection>scm:git:https://github.com/chensoul/chensoul-security-jwt-spring-boot-starter.git
+        <connection>scm:git:https://github.com/chensoul/chensoul-security-spring-boot-starter.git</connection>
+        <developerConnection>scm:git:https://github.com/chensoul/chensoul-security-spring-boot-starter.git
         </developerConnection>
-        <url>https://github.com/chensoul/chensoul-security-jwt-spring-boot-starter</url>
+        <url>https://github.com/chensoul/chensoul-security-spring-boot-starter</url>
         <tag>HEAD</tag>
     </scm>
 
@@ -139,11 +139,11 @@
             <distributionManagement>
                 <snapshotRepository>
                     <id>github</id>
-                    <url>https://maven.pkg.github.com/chensoul/chensoul-security-jwt-spring-boot-starter/</url>
+                    <url>https://maven.pkg.github.com/chensoul/chensoul-security-spring-boot-starter/</url>
                 </snapshotRepository>
                 <repository>
                     <id>github</id>
-                    <url>https://maven.pkg.github.com/chensoul/chensoul-security-jwt-spring-boot-starter/</url>
+                    <url>https://maven.pkg.github.com/chensoul/chensoul-security-spring-boot-starter/</url>
                 </repository>
             </distributionManagement>
         </profile>
