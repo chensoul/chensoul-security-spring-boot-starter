@@ -2,9 +2,10 @@
 
 This is a SpringBoot starter to provide JWT token based security autoconfiguration.
 
-## TODO
+## Features
 
-- Add oauth2 support
+- JWT
+- MFA
 
 ## How to use?
 
@@ -31,18 +32,18 @@ With the starter dependency is added, you need to configure a bean of type
 
 The following configuration properties are available to customize the default behaviour.
 
-| Property                          | Required | Default Value                       |
-|-----------------------------------|----------|-------------------------------------|
-| `security.jwt.enabled`            | no       | `true`                              |
-| `security.jwt.issuer`             | yes      |                                     |
-| `security.jwt.header`             | yes      | `Authorization`                     |
-| `security.jwt.expires-in`         | yes      | `604800`                            |
-| `security.jwt.secret`             | yes      |                                     |
-| `security.jwt.base-path`          | yes      | `/api/**`                           |
-| `security.jwt.permit-all-paths`   | no       | `/api/auth/login,/api/auth/refresh` |
-| `security.jwt.auth-token-path`    | no       | `/api/auth/login`                   |
-| `security.jwt.refresh-token-path` | no       | `/api/auth/refresh`                 |
-| `security.jwt.auth-me-path`       | no       | `/api/auth/me`                      |
+| Property                                 | Required | Default Value                                                        |
+|------------------------------------------|----------|----------------------------------------------------------------------|
+| `security.jwt.enabled`                   | no       | `true`                                                               |
+| `security.jwt.token-issuer`              | yes      | `chensoul.com`                                                       |
+| `security.jwt.token-signing-key`         | yes      | `secret1234567890123456789012345678912345678901234567890123456789`   |
+| `security.jwt.access-token-expire-time`  | yes      | `604800`                                                             |
+| `security.jwt.refresh-token-expire-time` | yes      | `9000`                                                               |
+| `security.jwt.base-path`                 | yes      | `/api/**`                                                            |
+| `security.jwt.login-url`                 | no       | `/api/auth/login`                                                    |
+| `security.jwt.refresh-token-url`         | no       | `/api/auth/token`                                                    |
+| `security.jwt.paths-to-skip`             | no       | `/api/auth/login,/api/auth/token,/api/noauth/**,/actuator/**,/error` |
+| `security.jwt.mfa.enabled`               | no       | `false`                                                              |
 
 If `security.jwt.enabled` property is set to true then following REST endpoints will be available:
 

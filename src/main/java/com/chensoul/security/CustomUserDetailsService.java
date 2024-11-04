@@ -1,7 +1,5 @@
-package com.chensoul.demo;
+package com.chensoul.security;
 
-import com.chensoul.security.rest.model.Authority;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,7 +23,8 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         if (credentials.containsKey(username)) {
-            return new User(username, credentials.get(username), AuthorityUtils.createAuthorityList(Authority.SYS_ADMIN.name()));
+            return new User(username, credentials.get(username),
+                    Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
         }
         throw new UsernameNotFoundException("No user found with username " + username);
     }

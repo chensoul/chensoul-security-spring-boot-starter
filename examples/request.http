@@ -7,31 +7,44 @@ Content-Type: application/json
   "password": "admin"
 }
 
-> {% client.global.set("auth_token", response.body.access_token); %}
+> {%
+ client.global.set("access_token", response.body.access_token);
+%}
 
 ### Refresh token
-POST localhost:8080/api/auth/refresh
-#Authorization: Bearer {{auth_token}}
+POST localhost:8080/api/auth/token
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+"refreshToken": "{{refresh_token}}"
+}
+
+### List MFA providers
+GET localhost:8080/api/auth/2fa/providers
+Authorization: Bearer {{access_token}}
+
+### requestTwoFaVerificationCode
+POST localhost:8080/api/auth/2fa/verification/send
+Authorization: Bearer {{access_token}}
 
 ### Get user info
 GET localhost:8080/api/auth/me
-Authorization: Bearer {{auth_token}}
+Authorization: Bearer {{access_token}}
 
 ### Get data with token
 GET localhost:8080/api/data
-Authorization: Bearer {{auth_token}}
+Authorization: Bearer {{access_token}}
 
 ### Get data without token
-GET localhost:8080/api/data
+POST localhost:8080/api/data
 
 ### Get health
 GET localhost:8080/api/health
 
 ### Get health
-POST localhost:8080/api/xxxxx
+GET localhost:8080/api/xxxxx
 
 ### Get hello
 GET localhost:8080/public/hello
 
-###
-GET localhost:8080/public/unkown

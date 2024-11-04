@@ -1,0 +1,27 @@
+logging.level.org.springframework.web.servlet.mvc.method.annotation: TRACE
+security.jwt.enabled: true
+security:
+  .jwt:
+    mfa:
+      enabled: true
+      minVerificationCodeSendPeriod: 300
+      providers:
+        - providerType: "TOTP"
+          issuerName: "123"
+        - providerType: "SMS"
+          template: "123"
+          verificationCodeExpireTime: 10
+        - providerType: "EMAIL"
+          verificationCodeExpireTime: 10
+        - providerType: "BACKUP_CODE"
+          codesQuantity: 8
+      configs:
+        - providerType: "EMAIL"
+          useByDefault: true
+          email: "admin@gmail.com"
+        - providerType: "SMS"
+          phoneNumber: "code"
+        - providerType: "TOTP"
+          authUrl: "http://auth.com"
+        - providerType: "BACKUP_CODE"
+          codes: "abc,cde"
