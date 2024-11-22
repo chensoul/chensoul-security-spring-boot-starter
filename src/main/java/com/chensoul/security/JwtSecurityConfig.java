@@ -35,7 +35,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 @EnableConfigurationProperties(JwtProperties.class)
 @Order(SecurityProperties.BASIC_AUTH_ORDER)
-@AutoConfigureAfter(SecurityProperties.class)
+//@AutoConfigureAfter(SecurityProperties.class)
 public class JwtSecurityConfig {
     @Qualifier("defaultAuthenticationSuccessHandler")
     private final AuthenticationSuccessHandler defaultAuthenticationSuccessHandler;
@@ -64,7 +64,6 @@ public class JwtSecurityConfig {
         http.headers(headers -> headers.cacheControl(withDefaults()).frameOptions(withDefaults()).disable())
                 .cors(withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
-                .exceptionHandling(withDefaults())
                 .sessionManagement(config -> config.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(config ->
                         config.antMatchers(jwtProperties.getPathsToSkip().toArray(new String[0])).permitAll() // Protected WebSocket API End-points

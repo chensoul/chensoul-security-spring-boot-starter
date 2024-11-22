@@ -10,9 +10,10 @@
     </parent>
 
     <groupId>com.chensoul</groupId>
-    <artifactId>spring-boot-jwt-security-demo</artifactId>
+    <artifactId>spring-boot-security-demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>spring-boot-jwt-security-demo</name>
+
+    <name>spring-boot-security-demo</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
