@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/auth/2fa")
+@RequestMapping("/api/auth/mfa")
 @RequiredArgsConstructor
 public class MfaAuthController {
     private final MfaSettingService mfaSettingService;

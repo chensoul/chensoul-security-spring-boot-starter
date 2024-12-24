@@ -27,8 +27,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class DefaultMfaSettingService implements MfaSettingService {
     private final Map<MfaProviderType, MfaProvider<MfaProviderConfig, MfaConfig>> providers = new EnumMap<>(MfaProviderType.class);
-    private static final RuntimeException PROVIDER_NOT_CONFIGURED_ERROR = new RuntimeException("2FA provider is not configured");
-    private static final RuntimeException PROVIDER_NOT_AVAILABLE_ERROR = new RuntimeException("2FA provider is not available");
+    private static final RuntimeException PROVIDER_NOT_CONFIGURED_ERROR = new RuntimeException("mfa provider is not configured");
+    private static final RuntimeException PROVIDER_NOT_AVAILABLE_ERROR = new RuntimeException("mfa provider is not available");
 
     private final JwtTokenFactory tokenFactory;
     private final JwtProperties jwtProperties;

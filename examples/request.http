@@ -21,11 +21,11 @@ Authorization: Bearer {{access_token}}
 }
 
 ### List MFA providers
-GET localhost:8080/api/auth/2fa/providers
+GET localhost:8080/api/auth/mfa/providers
 Authorization: Bearer {{access_token}}
 
-### requestTwoFaVerificationCode
-POST localhost:8080/api/auth/2fa/verification/send
+### requestMfaVerificationCode
+POST localhost:8080/api/auth/mfa/verification/send
 Authorization: Bearer {{access_token}}
 
 ### Get user info

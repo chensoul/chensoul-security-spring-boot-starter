@@ -1,7 +1,8 @@
 logging.level.org.springframework.web.servlet.mvc.method.annotation: TRACE
-security.jwt.enabled: true
+
 security:
-  .jwt:
+  jwt:
+    enabled: true
     mfa:
       enabled: true
       minVerificationCodeSendPeriod: 300
