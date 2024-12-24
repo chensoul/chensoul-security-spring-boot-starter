@@ -13,8 +13,8 @@ import org.springframework.context.event.EventListener;
 public class DefaultTokenCacheService implements TokenCacheService {
     private final CacheManager cacheManager;
 
-    @EventListener(classes = UserAuthDataChangedEvent.class)
-    public void onUserAuthDataChanged(UserAuthDataChangedEvent event) {
+    @EventListener(classes = UserDataChangedEvent.class)
+    public void onUserAuthDataChanged(UserDataChangedEvent event) {
         if (event.getId()!=null) {
             log.info("User [{}] auth data has changed, set jwt token expired time to {}", event.getId(), event.getTs());
 

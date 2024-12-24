@@ -1,15 +1,14 @@
-package com.chensoul.security;
+package com.chensoul.security.config;
 
 import com.chensoul.security.jwt.JwtTokenAuthenticationProcessingFilter;
 import com.chensoul.security.jwt.RefreshTokenProcessingFilter;
 import com.chensoul.security.util.SkipPathRequestMatcher;
-import com.chensoul.security.mfa.TwoFaAuthController;
+import com.chensoul.security.mfa.MfaAuthController;
 import com.chensoul.security.rest.RestAccessDeniedHandler;
 import com.chensoul.security.rest.RestLoginProcessingFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -56,7 +55,7 @@ public class JwtSecurityConfig {
 //    OAuth2Configuration oauth2Configuration;
 
     @Bean
-    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         if (!jwtProperties.isEnabled()) {
             http.authorizeRequests().antMatchers("/error").permitAll();
             return http.build();
@@ -71,9 +70,9 @@ public class JwtSecurityConfig {
                                 .anyRequest().permitAll()
                 )
                 .exceptionHandling(config -> config.accessDeniedHandler(new RestAccessDeniedHandler(objectMapper)))
-                .addFilterBefore(buildRestLoginProcessingFilter(), UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(buildJwtTokenAuthenticationProcessingFilter(), UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(buildRefreshTokenProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(refreshTokenProcessingFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtTokenAuthenticationProcessingFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(refreshTokenProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
 
 //        if (oauth2Configuration!=null) {
 //            http.oauth2Login(login -> login
@@ -89,25 +88,25 @@ public class JwtSecurityConfig {
     }
 
     @ConditionalOnProperty(prefix = "security.jwt.mfa", value = "enabled", havingValue = "true")
-    @ComponentScan(basePackageClasses = TwoFaAuthController.class)
+    @ComponentScan(basePackageClasses = MfaAuthController.class)
     public class MfaConfig {
 
     }
 
-    protected RestLoginProcessingFilter buildRestLoginProcessingFilter() {
+    protected RestLoginProcessingFilter restLoginProcessingFilter() {
         RestLoginProcessingFilter filter = new RestLoginProcessingFilter(jwtProperties.getLoginUrl(), objectMapper, defaultAuthenticationSuccessHandler, defaultAuthenticationFailureHandler);
         filter.setAuthenticationManager(this.authenticationManager);
         return filter;
     }
 
-    protected JwtTokenAuthenticationProcessingFilter buildJwtTokenAuthenticationProcessingFilter() {
+    protected JwtTokenAuthenticationProcessingFilter jwtTokenAuthenticationProcessingFilter() {
         SkipPathRequestMatcher matcher = new SkipPathRequestMatcher(jwtProperties.getPathsToSkip(), jwtProperties.getBaseUrl());
         JwtTokenAuthenticationProcessingFilter filter = new JwtTokenAuthenticationProcessingFilter(defaultAuthenticationFailureHandler, matcher);
         filter.setAuthenticationManager(this.authenticationManager);
         return filter;
     }
 
-    protected RefreshTokenProcessingFilter buildRefreshTokenProcessingFilter() {
+    protected RefreshTokenProcessingFilter refreshTokenProcessingFilter() {
         RefreshTokenProcessingFilter filter = new RefreshTokenProcessingFilter(jwtProperties.getTokenRefreshUrl(), objectMapper, defaultAuthenticationSuccessHandler, defaultAuthenticationFailureHandler);
         filter.setAuthenticationManager(this.authenticationManager);
         return filter;

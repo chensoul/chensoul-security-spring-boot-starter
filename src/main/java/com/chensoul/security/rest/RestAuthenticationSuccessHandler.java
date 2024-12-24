@@ -1,14 +1,13 @@
 package com.chensoul.security.rest;
 
-import com.chensoul.security.JwtProperties;
+import com.chensoul.security.config.JwtProperties;
 import com.chensoul.security.jwt.token.JwtPair;
 import com.chensoul.security.jwt.token.JwtTokenFactory;
-import com.chensoul.security.jwt.token.TwoFaAuthenticationToken;
+import com.chensoul.security.mfa.MfaAuthenticationToken;
 import com.chensoul.security.rest.model.Authority;
 import com.chensoul.security.util.SecurityUser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,7 +32,7 @@ public class RestAuthenticationSuccessHandler implements AuthenticationSuccessHa
         SecurityUser securityUser = (SecurityUser) authentication.getPrincipal();
 
         JwtPair tokenPair;
-        if (authentication instanceof TwoFaAuthenticationToken) {
+        if (authentication instanceof MfaAuthenticationToken) {
             long preVerificationTokenLifetime = jwtProperties.getMfa().getTotalAllowedTimeForVerification();
             tokenPair = new JwtPair();
             tokenPair.setAccessToken(tokenFactory.createPreVerificationToken(securityUser, preVerificationTokenLifetime).getToken());

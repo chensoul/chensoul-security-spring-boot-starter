@@ -15,18 +15,16 @@
  */
 package com.chensoul.security.mfa.provider;
 
-import javax.validation.constraints.Min;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class BackupCodeTwoFaProviderConfig implements TwoFaProviderConfig {
-
-    @Min(value = 1, message = "must be greater than 0")
-    private int codesQuantity;
+@EqualsAndHashCode(callSuper = true)
+public class EmailMfaProviderConfig extends OtpBasedMfaProviderConfig {
 
     @Override
-    public TwoFaProviderType getProviderType() {
-        return TwoFaProviderType.BACKUP_CODE;
+	public MfaProviderType getProviderType() {
+		return MfaProviderType.EMAIL;
     }
 
 }

@@ -15,16 +15,13 @@
  */
 package com.chensoul.security.mfa.provider;
 
+import javax.validation.constraints.Min;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class EmailTwoFaProviderConfig extends OtpBasedTwoFaProviderConfig {
+public abstract class OtpBasedMfaProviderConfig implements MfaProviderConfig {
 
-    @Override
-	public TwoFaProviderType getProviderType() {
-		return TwoFaProviderType.EMAIL;
-    }
+    @Min(value = 1, message = "is required")
+    private int verificationCodeExpireTime;
 
 }

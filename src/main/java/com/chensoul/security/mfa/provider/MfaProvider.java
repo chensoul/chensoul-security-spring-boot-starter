@@ -1,11 +1,11 @@
 package com.chensoul.security.mfa.provider;
 
 
-import com.chensoul.security.mfa.config.TwoFaConfig;
+import com.chensoul.security.mfa.config.MfaConfig;
 import com.chensoul.security.util.SecurityUser;
 import org.springframework.security.core.userdetails.User;
 
-public interface TwoFaProvider<C extends TwoFaProviderConfig, A extends TwoFaConfig> {
+public interface MfaProvider<C extends MfaProviderConfig, A extends MfaConfig> {
 
     A generateTwoFaConfig(User user, C providerConfig);
 
@@ -17,6 +17,6 @@ public interface TwoFaProvider<C extends TwoFaProviderConfig, A extends TwoFaCon
     default void check(String tenantId) {
     }
 
-    TwoFaProviderType getType();
+    MfaProviderType getType();
 
 }

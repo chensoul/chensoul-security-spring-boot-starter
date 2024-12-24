@@ -1,25 +1,24 @@
 package com.chensoul.security.mfa.config;
 
-import com.chensoul.security.mfa.provider.TwoFaProviderType;
+import com.chensoul.security.mfa.provider.MfaProviderType;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class BackupCodeTwoFaConfig extends TwoFaConfig {
+public class BackupCodeMfaConfig extends MfaConfig {
 
     @NotBlank
     private String codes;
 
     @Override
-    public TwoFaProviderType getProviderType() {
-        return TwoFaProviderType.BACKUP_CODE;
+    public MfaProviderType getProviderType() {
+        return MfaProviderType.BACKUP_CODE;
     }
 
     @JsonGetter("codes")

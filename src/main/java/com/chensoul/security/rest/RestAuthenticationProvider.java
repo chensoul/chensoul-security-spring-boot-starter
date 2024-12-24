@@ -1,8 +1,7 @@
 package com.chensoul.security.rest;
 
-import com.chensoul.security.JwtProperties;
-import com.chensoul.security.JwtSecurityConfig;
-import com.chensoul.security.jwt.token.TwoFaAuthenticationToken;
+import com.chensoul.security.config.JwtProperties;
+import com.chensoul.security.mfa.MfaAuthenticationToken;
 import com.chensoul.security.util.SecurityUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +33,7 @@ public class RestAuthenticationProvider implements AuthenticationProvider {
         SecurityUser securityUser = authenticateByUsernameAndPassword(authentication, username, password);
 
         if (jwtProperties.getMfa().isEnabled()) {
-            return new TwoFaAuthenticationToken(securityUser);
+            return new MfaAuthenticationToken(securityUser);
         }
 
         return new UsernamePasswordAuthenticationToken(securityUser, null, securityUser.getAuthorities());

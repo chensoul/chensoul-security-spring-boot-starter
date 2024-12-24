@@ -1,8 +1,8 @@
-package com.chensoul.security;
+package com.chensoul.security.config;
 
-import com.chensoul.security.mfa.config.TwoFaConfig;
-import com.chensoul.security.mfa.provider.TwoFaProviderConfig;
-import com.chensoul.security.mfa.provider.TwoFaProviderType;
+import com.chensoul.security.mfa.config.MfaConfig;
+import com.chensoul.security.mfa.provider.MfaProviderConfig;
+import com.chensoul.security.mfa.provider.MfaProviderType;
 import com.chensoul.security.util.JacksonUtil;
 import java.util.Arrays;
 import java.util.List;
@@ -65,18 +65,18 @@ public class JwtProperties {
         @NotNull
         private List<Map<String, Object>> configs;
 
-        public List<TwoFaConfig> getAllConfigs() {
-            return configs.stream().map(twoFaConfig -> JacksonUtil.fromString(JacksonUtil.toString(twoFaConfig), TwoFaConfig.class)).collect(Collectors.toList());
+        public List<MfaConfig> getAllConfigs() {
+            return configs.stream().map(twoFaConfig -> JacksonUtil.fromString(JacksonUtil.toString(twoFaConfig), MfaConfig.class)).collect(Collectors.toList());
         }
 
-        public TwoFaConfig getDefaultConfig() {
-            return getAllConfigs().stream().filter(TwoFaConfig::isUseByDefault).findAny().orElse(null);
+        public MfaConfig getDefaultConfig() {
+            return getAllConfigs().stream().filter(MfaConfig::isUseByDefault).findAny().orElse(null);
         }
 
-        public Optional<TwoFaProviderConfig> getProviderConfig(TwoFaProviderType providerType) {
+        public Optional<MfaProviderConfig> getProviderConfig(MfaProviderType providerType) {
             return Optional.ofNullable(providers)
                     .flatMap(providersConfigs -> providersConfigs.stream()
-                            .map(providerConfig -> JacksonUtil.fromString(JacksonUtil.toString(providerConfig), TwoFaProviderConfig.class))
+                            .map(providerConfig -> JacksonUtil.fromString(JacksonUtil.toString(providerConfig), MfaProviderConfig.class))
                             .filter(providerConfig -> providerConfig.getProviderType().equals(providerType))
                             .findFirst());
         }

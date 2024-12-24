@@ -1,11 +1,10 @@
 package com.chensoul.security.mfa.provider.impl;
 
-import com.chensoul.security.mfa.config.BackupCodeTwoFaConfig;
-import com.chensoul.security.mfa.provider.BackupCodeTwoFaProviderConfig;
-import com.chensoul.security.mfa.provider.TwoFaProvider;
-import com.chensoul.security.mfa.provider.TwoFaProviderType;
+import com.chensoul.security.mfa.config.BackupCodeMfaConfig;
+import com.chensoul.security.mfa.provider.BackupCodeMfaProviderConfig;
+import com.chensoul.security.mfa.provider.MfaProvider;
+import com.chensoul.security.mfa.provider.MfaProviderType;
 import com.chensoul.security.util.SecurityUser;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -14,10 +13,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 @Component
-public class BackupCodeTwoFaProvider implements TwoFaProvider<BackupCodeTwoFaProviderConfig, BackupCodeTwoFaConfig> {
+public class BackupCodeMfaProvider implements MfaProvider<BackupCodeMfaProviderConfig, BackupCodeMfaConfig> {
     @Override
-    public BackupCodeTwoFaConfig generateTwoFaConfig(User user, BackupCodeTwoFaProviderConfig providerConfig) {
-        BackupCodeTwoFaConfig config = new BackupCodeTwoFaConfig();
+    public BackupCodeMfaConfig generateTwoFaConfig(User user, BackupCodeMfaProviderConfig providerConfig) {
+        BackupCodeMfaConfig config = new BackupCodeMfaConfig();
         config.setCodes(generateCodes(providerConfig.getCodesQuantity(), 8));
         config.setSerializeHiddenFields(true);
         return config;
@@ -30,7 +29,7 @@ public class BackupCodeTwoFaProvider implements TwoFaProvider<BackupCodeTwoFaPro
     }
 
     @Override
-    public boolean checkVerificationCode(SecurityUser user, String code, BackupCodeTwoFaProviderConfig providerConfig, BackupCodeTwoFaConfig accountConfig) {
+    public boolean checkVerificationCode(SecurityUser user, String code, BackupCodeMfaProviderConfig providerConfig, BackupCodeMfaConfig accountConfig) {
         if (CollectionUtils.contains(accountConfig.getCodesForJson().iterator(), code)) {
             return true;
         } else {
@@ -39,8 +38,8 @@ public class BackupCodeTwoFaProvider implements TwoFaProvider<BackupCodeTwoFaPro
     }
 
     @Override
-    public TwoFaProviderType getType() {
-        return TwoFaProviderType.BACKUP_CODE;
+    public MfaProviderType getType() {
+        return MfaProviderType.BACKUP_CODE;
     }
 
 }

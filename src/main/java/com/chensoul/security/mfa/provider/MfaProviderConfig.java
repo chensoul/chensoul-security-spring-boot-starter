@@ -11,14 +11,14 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         use = JsonTypeInfo.Id.NAME,
         property = "providerType")
 @JsonSubTypes({
-	@Type(name = "TOTP", value = TotpTwoFaProviderConfig.class),
-	@Type(name = "SMS", value = SmsTwoFaProviderConfig.class),
-	@Type(name = "EMAIL", value = EmailTwoFaProviderConfig.class),
-	@Type(name = "BACKUP_CODE", value = BackupCodeTwoFaProviderConfig.class)
+	@Type(name = "TOTP", value = TotpMfaProviderConfig.class),
+	@Type(name = "SMS", value = SmsMfaProviderConfig.class),
+	@Type(name = "EMAIL", value = EmailMfaProviderConfig.class),
+	@Type(name = "BACKUP_CODE", value = BackupCodeMfaProviderConfig.class)
 })
-public interface TwoFaProviderConfig {
+public interface MfaProviderConfig {
 
     @JsonIgnore
-	TwoFaProviderType getProviderType();
+    MfaProviderType getProviderType();
 
 }

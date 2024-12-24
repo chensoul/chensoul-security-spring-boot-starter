@@ -13,20 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.chensoul.security.mfa.provider;
+package com.chensoul.security.mfa.config;
 
-import javax.validation.constraints.NotBlank;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class TotpTwoFaProviderConfig implements TwoFaProviderConfig {
-
-    @NotBlank
-    private String issuerName;
-
-    @Override
-    public TwoFaProviderType getProviderType() {
-        return TwoFaProviderType.TOTP;
-    }
-
+@EqualsAndHashCode(callSuper = true)
+public abstract class OtpBasedMfaConfig extends MfaConfig {
 }

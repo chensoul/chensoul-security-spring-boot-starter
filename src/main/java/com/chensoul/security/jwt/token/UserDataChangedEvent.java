@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.chensoul.security.mfa.config;
+package com.chensoul.security.jwt.token;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import java.io.Serializable;
 
-@Data
-@EqualsAndHashCode(callSuper = true)
-public abstract class OtpBasedTwoFaConfig extends TwoFaConfig {
+public abstract class UserDataChangedEvent implements Serializable {
+    public abstract String getId();
+    public abstract long getTs();
 }

@@ -1,4 +1,4 @@
-package com.chensoul.security;
+package com.chensoul.security.config;
 
 import com.chensoul.security.jwt.JwtAuthenticationProvider;
 import com.chensoul.security.jwt.RefreshTokenAuthenticationProvider;

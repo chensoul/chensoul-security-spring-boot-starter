@@ -15,22 +15,9 @@
  */
 package com.chensoul.security.mfa.provider;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
-@EqualsAndHashCode(callSuper = true)
-@Data
-public class SmsTwoFaProviderConfig extends OtpBasedTwoFaProviderConfig {
-
-    @NotBlank(message = "is required")
-    @Pattern(regexp = ".*\\$\\{code}.*", message = "must contain verification code")
-    private String template;
-
-    @Override
-    public TwoFaProviderType getProviderType() {
-        return TwoFaProviderType.SMS;
-    }
-
+public enum MfaProviderType {
+    TOTP,
+    SMS,
+    EMAIL,
+    BACKUP_CODE
 }

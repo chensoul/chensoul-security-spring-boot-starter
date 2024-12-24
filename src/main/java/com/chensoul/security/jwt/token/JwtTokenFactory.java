@@ -1,6 +1,6 @@
 package com.chensoul.security.jwt.token;
 
-import com.chensoul.security.JwtProperties;
+import com.chensoul.security.config.JwtProperties;
 import com.chensoul.security.rest.model.Authority;
 import com.chensoul.security.util.SecurityUser;
 import io.jsonwebtoken.Claims;
@@ -13,7 +13,6 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;

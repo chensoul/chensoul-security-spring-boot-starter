@@ -1,6 +1,6 @@
 package com.chensoul.security.mfa.config;
 
-import com.chensoul.security.mfa.provider.TwoFaProviderType;
+import com.chensoul.security.mfa.provider.MfaProviderType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
@@ -14,13 +14,13 @@ import lombok.Data;
 	use = JsonTypeInfo.Id.NAME,
 	property = "providerType")
 @JsonSubTypes({
-	@Type(name = "TOTP", value = TotpTwoFaConfig.class),
-	@Type(name = "SMS", value = SmsTwoFaConfig.class),
-	@Type(name = "EMAIL", value = EmailTwoFaConfig.class),
-	@Type(name = "BACKUP_CODE", value = BackupCodeTwoFaConfig.class)
+	@Type(name = "TOTP", value = TotpMfaConfig.class),
+	@Type(name = "SMS", value = SmsMfaConfig.class),
+	@Type(name = "EMAIL", value = EmailMfaConfig.class),
+	@Type(name = "BACKUP_CODE", value = BackupCodeMfaConfig.class)
 })
 @Data
-public abstract class TwoFaConfig implements Serializable {
+public abstract class MfaConfig implements Serializable {
 
 	private boolean useByDefault;
 
@@ -28,5 +28,5 @@ public abstract class TwoFaConfig implements Serializable {
 	protected transient boolean serializeHiddenFields;
 
 	@JsonIgnore
-	public abstract TwoFaProviderType getProviderType();
+	public abstract MfaProviderType getProviderType();
 }

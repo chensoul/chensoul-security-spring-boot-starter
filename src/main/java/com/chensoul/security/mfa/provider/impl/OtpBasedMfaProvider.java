@@ -1,8 +1,8 @@
 package com.chensoul.security.mfa.provider.impl;
 
-import com.chensoul.security.mfa.config.OtpBasedTwoFaConfig;
-import com.chensoul.security.mfa.provider.OtpBasedTwoFaProviderConfig;
-import com.chensoul.security.mfa.provider.TwoFaProvider;
+import com.chensoul.security.mfa.config.OtpBasedMfaConfig;
+import com.chensoul.security.mfa.provider.OtpBasedMfaProviderConfig;
+import com.chensoul.security.mfa.provider.MfaProvider;
 import static com.chensoul.security.util.CacheConstants.TWO_FA_VERIFICATION_CODE_CACHE;
 import com.chensoul.security.util.SecurityUser;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public abstract class OtpBasedTwoFaProvider<C extends OtpBasedTwoFaProviderConfig, A extends OtpBasedTwoFaConfig> implements TwoFaProvider<C, A> {
+public abstract class OtpBasedMfaProvider<C extends OtpBasedMfaProviderConfig, A extends OtpBasedMfaConfig> implements MfaProvider<C, A> {
     private final CacheManager cacheManager;
     private final ObjectMapper objectMapper;
 
@@ -56,7 +56,7 @@ public abstract class OtpBasedTwoFaProvider<C extends OtpBasedTwoFaProviderConfi
     public static class Otp implements Serializable {
         private final long timestamp;
         private final String value;
-        private final OtpBasedTwoFaConfig twoFaConfig;
+        private final OtpBasedMfaConfig twoFaConfig;
     }
 
 }

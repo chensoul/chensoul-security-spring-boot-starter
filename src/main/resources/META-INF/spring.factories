@@ -1,3 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.chensoul.security.JwtSecurityConfig,\
-  com.chensoul.security.SecurityConfig
+  com.chensoul.security.config.JwtSecurityConfig,\
+  com.chensoul.security.config.SecurityConfig

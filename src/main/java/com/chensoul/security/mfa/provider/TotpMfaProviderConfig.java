@@ -13,11 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.chensoul.security.jwt.token;
+package com.chensoul.security.mfa.provider;
 
-import java.io.Serializable;
+import javax.validation.constraints.NotBlank;
+import lombok.Data;
 
-public abstract class UserAuthDataChangedEvent implements Serializable {
-    public abstract String getId();
-    public abstract long getTs();
+@Data
+public class TotpMfaProviderConfig implements MfaProviderConfig {
+
+    @NotBlank
+    private String issuerName;
+
+    @Override
+    public MfaProviderType getProviderType() {
+        return MfaProviderType.TOTP;
+    }
+
 }
